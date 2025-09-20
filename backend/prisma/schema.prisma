@@ -1,8 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
   provider = "prisma-client-js"
@@ -15,7 +10,7 @@ datasource db {
 }
 
 model User{
-  id Int @id @unique @default(autoincrement()) 
+  id String @id @unique @default(uuid()) 
   email String @unique
   fullName String?
   password String?
@@ -24,4 +19,40 @@ model User{
   updatedAt DateTime @updatedAt
 
 
+}
+model Leads{
+  id String @id @default(uuid()) 
+first_name String?  
+ last_name String?
+email String @unique
+phone Int @unique
+company String? 
+city String? 
+state String?
+source sourceType @default(other)
+status statusType 
+score Int @default(0)
+lead_value Int 
+last_activity_at DateTime?
+is_qualified Boolean @default(false)
+created_at DateTime @default(now())
+updated_at DateTime @updatedAt
+
+}
+enum sourceType{
+  ebsite
+   facebook_ads
+    google_ads
+     referral
+    events
+    other
+      
+
+}
+enum statusType{
+  new
+   contacted
+    qualified
+     lost
+      won
 }
